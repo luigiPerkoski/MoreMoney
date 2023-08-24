@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="balance">
+        <div class="current_balance">
+            {% for account in account_list %}
+                <p>{{account.soma}}</p>
+            {% endfor %}
+        </div>
+        <div class="expected_balance">
+            {% for account in account_list %}
+                <p>{{account.soma_futura}}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+<table class="table_extract">
+    <tr>
+        <th>Pay</th>
+        <th>Name</th>
+        <th>Typ</th>
+        <th>Account</th>
+        <th>value</th>
+
+    </tr>
+    
+        {% for extract in extract_list %}
+        <tr>
+            <td>
+            {% if extract.pay == False %}
+                <input type="checkbox" name="pay_checkbox_{{extract.id}}" id="" value=""> {{extract.pay}}
+            {% else %}
+                <input type="checkbox" name="pay_checkbox_{{extract.id}}" id="" value="" checked="False"> {{extract.pay}}
+            {% endif %}
+            </td>
+
+            <td>{{extract.name}}</td>
+
+            <td>
+            {% if extract.type == 'P' %}   
+                    <ion-icon name="add-circle-outline"></ion-icon>
+            {% else %}
+                    <ion-icon name="remove-circle-outline"></ion-icon>
+            {% endif %}
+            </td>
+            <td>{{extract.account}}</td>
+        
+            <td>{{extract.money}}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <p>Nenhum item cadastrado</p>
+        </tr>
+        {% endfor %}
+    
+</table>
+    
+{% endblock content %}
+

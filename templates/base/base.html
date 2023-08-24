@@ -1,0 +1,63 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project | {% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{%static 'core/css/style.css'%}">
+    <link rel="stylesheet" href="{%static 'core/css/table.css'%}">
+</head>
+<body>
+    <div class="menu_index">
+        <div class="home">
+            <a href="#">
+                <img class="img" src="{% static 'core/icon/home.png' %}" alt="home">
+            </a>
+        </div>
+        <div class=profit"">
+            <a href="#">
+                <img class="img" src="{% static 'core/icon/profit.png' %}" alt="profit">
+            </a>
+        </div>
+        <div class="expense">
+            <a href="#">
+                <img class="img" src="{% static 'core/icon/expense.png' %}" alt="expense">
+            </a>
+        </div>
+        <div class="wallet">
+            <a href="#">
+                <img class="img" src="{% static 'core/icon/wallet.png' %}" alt="wallet">
+            </a>
+        </div>
+    </div>
+    
+    <div class="content">
+        
+        <div class="profile">
+            <div class="search-container">
+                <div class="research">
+                    <div class="search">
+                        <input type="text" name="profile" id="profile">
+                    <a href="#" class="button_reserch">
+                        <img width="20px" src="{% static 'core/icon/research.png' %}" alt="">
+                    </a>
+                    </div>
+                </div>
+            </div>
+            <div class="user-container">    
+                <div class="button"><a href="#">Login</a></div>
+                <div class="button"><a href="#">Register</a></div>
+                <a href="#"><div class="perfil">
+                    <img class="perfil" src="{% static 'core/icon/perfil.png' %}" alt="perfil">
+                </div></a>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock content %}
+        
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
