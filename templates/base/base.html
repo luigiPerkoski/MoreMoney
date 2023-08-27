@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="{%static 'core/css/table.css'%}">
 </head>
 <body>
+    {% for conta in account %}
+        {% comment %} {{conta.show_futere_sum}} {% endcomment %}
+    {% endfor %}
     <div class="menu_index">
         <div class="home">
             <a href="#">

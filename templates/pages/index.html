@@ -5,14 +5,10 @@
 {% block content %}
     <div class="balance">
         <div class="current_balance">
-            {% for account in account_list %}
-                <p>{{account.soma}}</p>
-            {% endfor %}
+            {{money.show_value}}
         </div>
         <div class="expected_balance">
-            {% for account in account_list %}
-                <p>{{account.soma_futura}}</p>
-            {% endfor %}
+            {{money.show_future_value}}
         </div>
     </div>
 
@@ -22,6 +18,7 @@
         <th>Name</th>
         <th>Typ</th>
         <th>Account</th>
+        <th>date</th>
         <th>value</th>
 
     </tr>
@@ -30,9 +27,9 @@
         <tr>
             <td>
             {% if extract.pay == False %}
-                <input type="checkbox" name="pay_checkbox_{{extract.id}}" id="" value=""> {{extract.pay}}
+                <input type="checkbox" name="pay_checkbox_{{extract.id}}" id="" value="">
             {% else %}
-                <input type="checkbox" name="pay_checkbox_{{extract.id}}" id="" value="" checked="False"> {{extract.pay}}
+                <input type="checkbox" name="pay_checkbox_{{extract.id}}" id="" value="" checked="False">
             {% endif %}
             </td>
 
@@ -46,8 +43,12 @@
             {% endif %}
             </td>
             <td>{{extract.account}}</td>
-        
-            <td>{{extract.money}}</td>
+
+            <td>{{extract.show_date}}</td>
+
+            <td>{{extract.show_money}}</td>
+
+            
         </tr>
         {% empty %}
         <tr>

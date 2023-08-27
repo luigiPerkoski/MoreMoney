@@ -1,7 +1,7 @@
 from django.db import models
-from datetime import date
+import datetime
 
-#* Models here 
+# Models here 
 
 class Account(models.Model): #* Accounts templates to filter between bank 
 
@@ -11,14 +11,14 @@ class Account(models.Model): #* Accounts templates to filter between bank
         ('IN', 'Investimento'))
     
     color_list = (('R', 'Vermelho'),
-            ('B', 'Azul'),
-            ('P', 'Roxo'),
-            ('O', 'Laranja'))
+        ('B', 'Azul'),
+        ('P', 'Roxo'),
+        ('O', 'Laranja'))
         
 
     name = models.CharField(max_length=50)
-    value = models.FloatField() 
-    future_value = models.FloatField() 
+    value = models.FloatField(null=True) 
+    future_value = models.FloatField(null=True) 
     descripition = models.TextField(max_length=300)
     type = models.CharField(choices=type_list, blank=False, null=False, max_length=2)
     color = models.CharField(choices=color_list, blank=False, null=False, max_length=2)
@@ -28,40 +28,82 @@ class Account(models.Model): #* Accounts templates to filter between bank
         return self.name
 
 
-    def __sum(self) -> None:
+    def __date_now(self,date_one, date_two) -> bool:
+        #! Declara True caso a primeira variavel seja maior ou igual e False caso seja menor 
+
+
+        list_date_one = str(date_one).split('-')
+        list_date_two = str(date_two).split('-')
+
+        if int(list_date_one[0]) > int(list_date_two[0]):
+            return True
+        elif int(list_date_one[0]) == int(list_date_two[0]):
+            if int(list_date_one[1]) > int(list_date_two[1]):
+                  return True
+            elif int(list_date_one[1]) == int(list_date_two[1]):
+                  if int(list_date_one[2]) >= int(list_date_two[2]):
+                       return True
+                  else: 
+                       return False
+            else:
+                 return False
+        else:
+            return False
+
+
+    def sum(self) -> None:
 
         value = 0
 
-        for obj in Extract.objects.order_by('date'):
-            if obj.account == self:
-                value += obj.value
+        date = datetime.date.today()
 
-        Account.objects.update(value=value)   
-    
+        for object in Extract.objects.order_by('date'):
+            if object.account == self and self.__date_now(date, object.date):
+                match object.type:
 
-    def __future_sum(self) -> None:
+                    case 'P':
+                        value += object.value
+
+                    case 'D':
+                        value -= object.value
+                    
         
-        object_list = Extract.objects.order_by('date')
-        value = 0
+        Account.objects.update(value=value)   
 
-        for object in object_list:
-            if object.account == self.name and object.date > date.today().day:
-                value += object.value
+    
+    def future_sum(self) -> None:
+        
+        value = self.value
+
+        date = datetime.date.today()
+
+
+        for object in Extract.objects.order_by('date'):
+            if object.account == self and self.__date_now(date, object.date) != True:
+                match object.type:
+
+                    case 'P':
+                        value += object.value
+
+                    case 'D':
+                        value -= object.value
         
         Account.objects.update(future_value=value)
 
 
     def show_sum(self) -> str:
 
-        self.__sum
+        self.sum()
 
         return f'R$ {self.value:.2f}'.replace('.', ',')
 
+
     def show_futere_sum(self) -> str:
 
-        self.__future_sum
+        self.future_sum()
 
         return f'R$ {self.future_value:.2f}'.replace('.', ',')
+
 
 class Extract(models.Model): #* Extract template for saving money spending
 
@@ -71,7 +113,7 @@ class Extract(models.Model): #* Extract template for saving money spending
     name = models.CharField(max_length=50, blank=False)
     value = models.FloatField()
     account = models.ForeignKey(Account, on_delete= models.PROTECT) 
-    type = models.CharField(max_length=1, choices=type_list, blank=False, null=False)
+    type = models.CharField(max_length=1, choices=type_list, blank=False, null=False, )
     date = models.DateField(blank=False, null=False)
     descripition = models.TextField(max_length=300)
     pay = models.BooleanField(default=True)
@@ -80,11 +122,67 @@ class Extract(models.Model): #* Extract template for saving money spending
     def __str__(self) -> str:
         return self.name
     
+
+    def show_date(self) -> str:
+
+        date = str(self.date)
+
+        return date
     
-    
-    
+
     def show_money(self) -> str:
+
         return f'R$ {self.value:.2f}'.replace('.', ',')
     
 
+class Money(models.Model):
+
+    name = models.CharField(max_length=50)
+    value = models.FloatField()
+    future_value = models.FloatField()
+
+
+    def __str__(self) -> str:
+        return self.name
+
+
+    def calc_future_value(self):
+ 
+        response = 0
+
+        for object in Account.objects.order_by('name'):
+
+            object.future_sum()
+
+            response += object.future_value
+
+        Money.objects.update(future_value=response)
+
+
+    def calc_value(self):
+
+        response = 0
+
+        for object in Account.objects.order_by('name'):
+
+            object.sum()
+
+            response += object.value
+
+        Money.objects.update(value=response)
+    
+
+    def show_value(self):
+        
+        self.calc_value()
+
+        return f'R$ {self.value:.2f}'.replace('.', ',')
+
+
+    def show_future_value(self):
+        
+        self.calc_future_value()
+
+        return f'R$ {self.future_value:.2f}'.replace('.', ',')
+    
 
