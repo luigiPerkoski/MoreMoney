@@ -2,8 +2,29 @@
 
 {% load static %}
 
+{% block title %}Accounts{% endblock title %}
+
 {% block style %}<link rel="stylesheet" href="{%static 'core/css/accounts.css'%}">{% endblock style %}
 
 {% block content %}
-    
+    {% for account in account_list %}
+        <div class="account_content">
+            <h1>{{account.name}}</h1>
+            <p>{{account.show_sum}}</p>
+            <p>{{account.show_futere_sum}}</p><br>
+            {% if account.type == 'DI' %}
+                <i data-lucide="banknote"></i>
+            {% elif account.type == 'CC' %}
+                <i data-lucide="landmark"></i>
+            {% elif account.type == 'CA' %}
+                <i data-lucide="credit-card"></i>
+            {% else %}
+                <i data-lucide="piggy-bank"></i>
+            {% endif %}
+        </div>
+    {% empty %}
+        <div class="empty_account">
+            <p>Nenhuma conta foi criada</p>
+        </div>
+    {% endfor %}
 {% endblock content %}

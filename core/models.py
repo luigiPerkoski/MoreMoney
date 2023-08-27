@@ -7,7 +7,7 @@ class Account(models.Model): #* Accounts templates to filter between bank
 
     type_list = (('CC', 'Conta Corrente'),
         ('DI', 'Dinheiro'), 
-        ('CP', 'Conta Poupança'), 
+        ('CA', 'Cartao'), 
         ('IN', 'Investimento'))
     
     color_list = (('R', 'Vermelho'),
@@ -112,7 +112,7 @@ class Extract(models.Model): #* Extract template for saving money spending
     
     name = models.CharField(max_length=50, blank=False)
     value = models.FloatField()
-    account = models.ForeignKey(Account, on_delete= models.PROTECT) 
+    account = models.ForeignKey(Account, on_delete= models.CASCADE) 
     type = models.CharField(max_length=1, choices=type_list, blank=False, null=False, )
     date = models.DateField(blank=False, null=False)
     descripition = models.TextField(max_length=300)
@@ -140,6 +140,8 @@ class Money(models.Model): #* All money
     name = models.CharField(max_length=50)
     value = models.FloatField()
     future_value = models.FloatField()
+    extract_damege = models.FloatField()
+    extract_profit = models.FloatField()
 
 
     def __str__(self) -> str:
@@ -186,3 +188,35 @@ class Money(models.Model): #* All money
         return f'R$ {self.future_value:.2f}'.replace('.', ',')
     
 
+    def calc_extract_damege(self):
+
+        value = 0
+        
+        for object in Extract.objects.filter(type='D'):
+            value += object.value
+
+        Money.objects.update(extract_damege=value)
+            
+
+
+    def calc_extract_profit(self):
+        
+        value = 0
+        
+        for object in Extract.objects.filter(type='P'):
+            value += object.value
+
+        Money.objects.update(extract_profit=value)
+
+
+    def show_extract_damege(self):
+        
+        self.calc_extract_damege()
+
+        return f'R$ {self.extract_damege:.2f}'.replace('.', ',')
+
+    def show_extract_profit(self):
+        
+        self.calc_extract_profit()
+
+        return f'R$ {self.extract_profit:.2f}'.replace('.', ',')

@@ -1,7 +1,7 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from .models import Extract, Money, Account
 
-def index(request): #*Menu 
+def index(request): 
 
     #criar filtragem para saber qual extrato é de qual conta #!CREATE
     
@@ -17,3 +17,19 @@ def accounts(request):
 
     context = {'account_list': account}
     return render(request, 'pages/accounts.html', context=context)
+
+def damege(request):
+
+    damege = Extract.objects.filter(type='D')
+    money = Money.objects.get(id=1)
+
+    context = {'extract_damege': damege, 'money': money}
+    return render(request, 'pages/damege.html', context=context)
+
+def profit(request):
+
+    profit = Extract.objects.filter(type='P')
+    money = Money.objects.get(id=1)
+
+    context = {'extract_profit': profit, 'money': money}
+    return render(request, 'pages/profit.html', context=context)

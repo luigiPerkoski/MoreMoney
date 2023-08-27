@@ -58,16 +58,16 @@
 </head>
 <body>
     <div class="h-full px-4 justify-evenly flex flex-col border-solid border-black border-r-[1px]">
-        <a class="" href="#">
+        <a class="" href="{% url 'index' %}">
             <i class="w-10 h-10" data-lucide="line-chart"></i>
         </a>
-        <a href="#">
+        <a href="{% url 'profit' %}">
             <i class="w-10 h-10" data-lucide="trending-up"></i>
         </a>
-        <a href="#">
+        <a href="{% url 'damage' %}">
             <i class="w-10 h-10" data-lucide="trending-down"></i>
         </a>
-        <a href="#">
+        <a href="{% url 'accounts' %}">
             <i class="w-10 h-10" data-lucide="wallet"></i>
         </a>
     </div>
