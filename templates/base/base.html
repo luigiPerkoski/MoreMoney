@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project | {% block title %}{% endblock title %}</title>
-    <link rel="stylesheet" href="{%static 'core/css/style.css'%}">
+    <link rel="stylesheet" href="{%static 'core/css/menu.css'%}">
     <link rel="stylesheet" href="{%static 'core/css/table.css'%}">
+    {% block style %}{% endblock style %}
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -36,6 +37,7 @@
         thead tr th {
         border-collapse: separate; 
         border-spacing: 1px 1px;
+        padding: 10px 0;
         } 
 
         tbody tr#first td {
@@ -43,13 +45,18 @@
         border-collapse: separate;
         border-spacing: 1px 1px;
         }
+
+        td{
+            padding: 10px 0;
+        }
+
+        html, body {
+            @apply h-screen;
+        }
     }
     </style>
 </head>
 <body>
-    {% for conta in account %}
-        {% comment %} {{conta.show_futere_sum}} {% endcomment %}
-    {% endfor %}
     <div class="h-full px-4 justify-evenly flex flex-col border-solid border-black border-r-[1px]">
         <a class="" href="#">
             <i class="w-10 h-10" data-lucide="line-chart"></i>

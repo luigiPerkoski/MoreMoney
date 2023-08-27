@@ -105,7 +105,7 @@ class Account(models.Model): #* Accounts templates to filter between bank
         return f'R$ {self.future_value:.2f}'.replace('.', ',')
 
 
-class Extract(models.Model): #* Extract template for saving money spending
+class Extract(models.Model): #* Extract template for saving money spending 
 
     type_list = (('P', 'Profit'), ('D', 'Damage'))
 
@@ -135,7 +135,7 @@ class Extract(models.Model): #* Extract template for saving money spending
         return f'R$ {self.value:.2f}'.replace('.', ',')
     
 
-class Money(models.Model):
+class Money(models.Model): #* All money 
 
     name = models.CharField(max_length=50)
     value = models.FloatField()
