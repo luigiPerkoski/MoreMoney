@@ -12,50 +12,51 @@
         </div>
     </div>
 
-<table class="table_extract">
+    <table class="w-[90%] m-auto spacing-y-5">
+        <thead>
+            <tr class="bg-yellow-100 shadow-none text-yellow-950 capitalize">
+                <th class="border-y border-l border-solid border-yellow-400">Pay</th>
+                <th class="border-y border-solid border-yellow-400">Name</th>
+                <th class="border-y border-solid border-yellow-400">Type</th>
+                <th class="border-y border-solid border-yellow-400">Account</th>
+                <th class="border-y border-solid border-yellow-400">date</th>
+                <th class="border-y border-r border-solid border-yellow-400">value</th>
+            </tr>
+        </thead>
+  <tbody>
+    {% for extract in extract_list %}
     <tr>
-        <th>Pay</th>
-        <th>Name</th>
-        <th>Typ</th>
-        <th>Account</th>
-        <th>date</th>
-        <th>value</th>
+        <td class="">
+        {% if extract.pay == False %}
+            <input type="checkbox" name="pay_checkbox_{{extract.id}}" id="" value="">
+        {% else %}
+            <input type="checkbox" name="pay_checkbox_{{extract.id}}" id="" value="" checked="False">
+        {% endif %}
+        </td>
 
+        <td class="">{{extract.name}}</td>
+
+        <td class="flex justify-center">
+        {% if extract.type == 'P' %}   
+            <i data-lucide="plus-circle"></i>
+        {% else %}
+            <i data-lucide="minus-circle"></i>
+        {% endif %}
+        </td>
+        <td class="">{{extract.account}}</td>
+
+        <td class="">{{extract.show_date}}</td>
+
+        <td class="">{{extract.show_money}}</td>
+
+        
     </tr>
-    
-        {% for extract in extract_list %}
-        <tr>
-            <td>
-            {% if extract.pay == False %}
-                <input type="checkbox" name="pay_checkbox_{{extract.id}}" id="" value="">
-            {% else %}
-                <input type="checkbox" name="pay_checkbox_{{extract.id}}" id="" value="" checked="False">
-            {% endif %}
-            </td>
-
-            <td>{{extract.name}}</td>
-
-            <td>
-            {% if extract.type == 'P' %}   
-                    <ion-icon name="add-circle-outline"></ion-icon>
-            {% else %}
-                    <ion-icon name="remove-circle-outline"></ion-icon>
-            {% endif %}
-            </td>
-            <td>{{extract.account}}</td>
-
-            <td>{{extract.show_date}}</td>
-
-            <td>{{extract.show_money}}</td>
-
-            
-        </tr>
-        {% empty %}
-        <tr>
-            <p>Nenhum item cadastrado</p>
-        </tr>
-        {% endfor %}
-    
+    {% empty %}
+    <tr>
+        <p>Nenhum item cadastrado</p>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
     
 {% endblock content %}

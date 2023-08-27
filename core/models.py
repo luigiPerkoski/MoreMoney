@@ -125,9 +125,9 @@ class Extract(models.Model): #* Extract template for saving money spending
 
     def show_date(self) -> str:
 
-        date = str(self.date)
+        date = str(self.date).split('-')
 
-        return date
+        return f'{date[2]}/{date[1]}/{date[0]}'
     
 
     def show_money(self) -> str:
@@ -181,7 +181,7 @@ class Money(models.Model):
 
     def show_future_value(self):
         
-        self.calc_future_value()
+        self.calc_future_value( )
 
         return f'R$ {self.future_value:.2f}'.replace('.', ',')
     

@@ -7,43 +7,72 @@
     <title>Project | {% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{%static 'core/css/style.css'%}">
     <link rel="stylesheet" href="{%static 'core/css/table.css'%}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#F0FF43',
+                        primary2: '#FFDD03',
+                        purple: '#3E18B5',
+                        dark: '#150E2B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+    @layer base {
+        thead tr { @apply drop-shadow-md; }
+        tr { @apply bg-white shadow hover:drop-shadow-md; }
+        tbody, table, thead,tr { @apply border-spacing-y-2; }
+        table {
+        border: 0;
+        border-collapse: separate; 
+        border-spacing: 0 1px;
+        }
+
+        thead tr th {
+        border-collapse: separate; 
+        border-spacing: 1px 1px;
+        } 
+
+        tbody tr#first td {
+        border-top: 3px solid #4d4d4d; 
+        border-collapse: separate;
+        border-spacing: 1px 1px;
+        }
+    }
+    </style>
 </head>
 <body>
     {% for conta in account %}
         {% comment %} {{conta.show_futere_sum}} {% endcomment %}
     {% endfor %}
-    <div class="menu_index">
-        <div class="home">
-            <a href="#">
-                <img class="img" src="{% static 'core/icon/home.png' %}" alt="home">
-            </a>
-        </div>
-        <div class=profit"">
-            <a href="#">
-                <img class="img" src="{% static 'core/icon/profit.png' %}" alt="profit">
-            </a>
-        </div>
-        <div class="expense">
-            <a href="#">
-                <img class="img" src="{% static 'core/icon/expense.png' %}" alt="expense">
-            </a>
-        </div>
-        <div class="wallet">
-            <a href="#">
-                <img class="img" src="{% static 'core/icon/wallet.png' %}" alt="wallet">
-            </a>
-        </div>
+    <div class="h-full px-4 justify-evenly flex flex-col border-solid border-black border-r-[1px]">
+        <a class="" href="#">
+            <i class="w-10 h-10" data-lucide="line-chart"></i>
+        </a>
+        <a href="#">
+            <i class="w-10 h-10" data-lucide="trending-up"></i>
+        </a>
+        <a href="#">
+            <i class="w-10 h-10" data-lucide="trending-down"></i>
+        </a>
+        <a href="#">
+            <i class="w-10 h-10" data-lucide="wallet"></i>
+        </a>
     </div>
     
     <div class="content">
-        
         <div class="profile">
             <div class="search-container">
                 <div class="research">
                     <div class="search">
                         <input type="text" name="profile" id="profile">
                     <a href="#" class="button_reserch">
-                        <img width="20px" src="{% static 'core/icon/research.png' %}" alt="">
+                        <i data-lucide="search"></i>
                     </a>
                     </div>
                 </div>
@@ -60,7 +89,9 @@
         {% endblock content %}
         
     </div>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
 </body>
 </html>
