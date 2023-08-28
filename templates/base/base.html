@@ -72,29 +72,9 @@
         </a>
     </div>
     
-    <div class="content">
-        <div class="profile">
-            <div class="search-container">
-                <div class="research">
-                    <div class="search">
-                        <input type="text" name="profile" id="profile">
-                    <a href="#" class="button_reserch">
-                        <i data-lucide="search"></i>
-                    </a>
-                    </div>
-                </div>
-            </div>
-            <div class="user-container">    
-                <div class="button"><a href="#">Login</a></div>
-                <div class="button"><a href="#">Register</a></div>
-                <a href="#"><div class="perfil">
-                    <img class="perfil" src="{% static 'core/icon/perfil.png' %}" alt="perfil">
-                </div></a>
-            </div>
-        </div>
+    <div class="w-full">
         {% block content %}
         {% endblock content %}
-        
     </div>
     <script type="module" src="{%static 'core/js/script.js'%}"></script>
     <script src="https://unpkg.com/lucide@latest"></script>

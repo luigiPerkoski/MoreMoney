@@ -3,10 +3,9 @@ from .models import Extract, Money, Account
 
 def index(request): 
 
-    #criar filtragem para saber qual extrato é de qual conta #!CREATE
     
-    extract = Extract.objects.order_by('date') #list of object
-    money = Money.objects.get(id=1) #show futuremoney
+    extract = Extract.objects.order_by('date') 
+    money = Money.objects.get(id=1) 
     
     context = {'extract_list': extract, 'money': money}
     return render(request, 'pages/index.html', context=context)

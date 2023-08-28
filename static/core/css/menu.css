@@ -50,7 +50,7 @@ a{
 }
 div.profile{
     padding: 20px;
-    margin: 0 auto;
+    margin: 0 0;
     display: flex;
     border: 1px solid #000000; 
 }
@@ -110,7 +110,4 @@ img.perfil{
     margin: 0;
     border: 1px solid #000000;
     border-radius: 20px;
-}
-.content{
-    width: 100%;
 }

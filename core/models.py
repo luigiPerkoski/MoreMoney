@@ -28,8 +28,6 @@ class Account(models.Model): #* Accounts templates to filter between bank
         return self.name
 
     def __date_now(self,date_one, date_two) -> bool:
-        #! Declara True caso a primeira variavel seja maior ou igual e False caso seja menor 
-
 
         list_date_one = str(date_one).split('-')
         list_date_two = str(date_two).split('-')
