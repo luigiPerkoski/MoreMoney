@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect
 from .models import Extract, Money, Account
 
 def index(request): 
@@ -40,4 +40,9 @@ def processar_formulario(request, id):
 
         var = request.POST.get(f'pay_checkbox_{id}')
 
-        return HttpResponse(f'pay_checkbox_{id}')
+        if var == None:
+            Extract.objects.filter(id=id).update(pay=False)
+        else:
+            Extract.objects.filter(id=id).update(pay=True)
+        
+        return redirect(index)
