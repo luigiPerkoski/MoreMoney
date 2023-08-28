@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from .models import Extract, Money, Account
 
 def index(request): 
@@ -33,3 +33,11 @@ def profit(request):
 
     context = {'extract_profit': profit, 'money': money}
     return render(request, 'pages/profit.html', context=context)
+
+def processar_formulario(request, id):
+
+    if request.method == 'POST':
+
+        var = request.POST.get(f'pay_checkbox_{id}')
+
+        return HttpResponse(f'pay_checkbox_{id}')

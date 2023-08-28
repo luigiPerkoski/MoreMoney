@@ -27,7 +27,6 @@ class Account(models.Model): #* Accounts templates to filter between bank
     def __str__(self) -> str:
         return self.name
 
-
     def __date_now(self,date_one, date_two) -> bool:
         #! Declara True caso a primeira variavel seja maior ou igual e False caso seja menor 
 
@@ -50,7 +49,6 @@ class Account(models.Model): #* Accounts templates to filter between bank
         else:
             return False
 
-
     def sum(self) -> None:
 
         value = 0
@@ -70,7 +68,6 @@ class Account(models.Model): #* Accounts templates to filter between bank
         
         Account.objects.update(value=value)   
 
-    
     def future_sum(self) -> None:
         
         value = self.value
@@ -90,13 +87,11 @@ class Account(models.Model): #* Accounts templates to filter between bank
         
         Account.objects.update(future_value=value)
 
-
     def show_sum(self) -> str:
 
         self.sum()
 
         return f'R$ {self.value:.2f}'.replace('.', ',')
-
 
     def show_futere_sum(self) -> str:
 
@@ -122,14 +117,12 @@ class Extract(models.Model): #* Extract template for saving money spending
     def __str__(self) -> str:
         return self.name
     
-
     def show_date(self) -> str:
 
         date = str(self.date).split('-')
 
         return f'{date[2]}/{date[1]}/{date[0]}'
     
-
     def show_money(self) -> str:
 
         return f'R$ {self.value:.2f}'.replace('.', ',')
@@ -147,7 +140,6 @@ class Money(models.Model): #* All money
     def __str__(self) -> str:
         return self.name
 
-
     def calc_future_value(self):
  
         response = 0
@@ -159,7 +151,6 @@ class Money(models.Model): #* All money
             response += object.future_value
 
         Money.objects.update(future_value=response)
-
 
     def calc_value(self):
 
@@ -173,13 +164,11 @@ class Money(models.Model): #* All money
 
         Money.objects.update(value=response)
     
-
     def show_value(self):
         
         self.calc_value()
 
         return f'R$ {self.value:.2f}'.replace('.', ',')
-
 
     def show_future_value(self):
         
@@ -187,7 +176,6 @@ class Money(models.Model): #* All money
 
         return f'R$ {self.future_value:.2f}'.replace('.', ',')
     
-
     def calc_extract_damege(self):
 
         value = 0
@@ -197,8 +185,6 @@ class Money(models.Model): #* All money
 
         Money.objects.update(extract_damege=value)
             
-
-
     def calc_extract_profit(self):
         
         value = 0
@@ -207,7 +193,6 @@ class Money(models.Model): #* All money
             value += object.value
 
         Money.objects.update(extract_profit=value)
-
 
     def show_extract_damege(self):
         
