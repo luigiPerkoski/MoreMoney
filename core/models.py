@@ -14,8 +14,8 @@ class Account(models.Model): #* Accounts templates to filter between bank
         ('B', 'Azul'),
         ('P', 'Roxo'),
         ('O', 'Laranja'))
+    
         
-
     name = models.CharField(max_length=50)
     value = models.FloatField(null=True) 
     future_value = models.FloatField(null=True) 

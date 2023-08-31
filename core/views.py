@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .models import Extract, Money, Account
+from .forms import NewExtract
 
 def index(request): 
 
@@ -45,3 +46,18 @@ def processar_formulario(request, id):
             Extract.objects.filter(id=id).update(pay=True)
         
         return redirect(index)
+    
+def new_extract(request):
+
+    forms = NewExtract()
+
+    context = {'forms': forms}
+
+    return render(request, 'pages/new_extract.html', context)
+
+def extract_forms(request):
+    forms = NewExtract(request.POST)
+    if forms.is_valid():
+        forms.save()
+        return HttpResponse(forms)
+    
