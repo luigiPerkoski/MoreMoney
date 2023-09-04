@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import Extract, Money, Account
-from .forms import NewExtract
+from .forms import NewExtract, NewAccount
 
 def index(request): 
 
@@ -59,5 +59,18 @@ def extract_forms(request):
     forms = NewExtract(request.POST)
     if forms.is_valid():
         forms.save()
-        return HttpResponse(forms)
-    
+        return redirect(index)
+
+def new_account(request):
+
+    forms = NewAccount()
+
+    context = {"forms": forms}
+
+    return render (request, 'pages/new_account.html', context )
+
+def accounts_forms(request):
+    forms = NewAccount(request.POST)
+    if forms.is_valid():
+        forms.save()
+        return redirect(index)

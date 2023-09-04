@@ -18,8 +18,8 @@ class Account(models.Model): #* Accounts templates to filter between bank
         
     name = models.CharField(max_length=50)
     value = models.FloatField(null=True) 
-    future_value = models.FloatField(null=True) 
-    descripition = models.TextField(max_length=300)
+    future_value = models.FloatField(default=0) 
+    descripition = models.TextField(max_length=300, null=True)
     type = models.CharField(choices=type_list, blank=False, null=False, max_length=2)
     color = models.CharField(choices=color_list, blank=False, null=False, max_length=2)
     
@@ -64,7 +64,7 @@ class Account(models.Model): #* Accounts templates to filter between bank
                         value -= object.value
                     
         
-        Account.objects.update(value=value)   
+        Account.objects.filter(id=self.id).update(value=value)   
 
     def future_sum(self) -> None:
         
@@ -83,7 +83,7 @@ class Account(models.Model): #* Accounts templates to filter between bank
                     case 'D':
                         value -= object.value
         
-        Account.objects.update(future_value=value)
+        Account.objects.filter(id=self.id).update(future_value=value)
 
     def show_sum(self) -> str:
 
