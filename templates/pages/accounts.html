@@ -7,84 +7,37 @@
 {% block style %}<link rel="stylesheet" href="{%static 'core/css/accounts.css'%}">{% endblock style %}
 
 {% block content %}
-<div class="flex relative gap-5 overflow-x-scroll">
+<div class="flex gap-5 w-1/2 flex-wrap p-8">
     {% for account in account_list %}
-    <div class="flex flex-col bg-red-500 p-6 w-32">
-        <div class="flex gap-3">
+    <div class="flex flex-col p-6 pb-0 min-w-[250px] border border-solid border-yellow-200 bg-yellow-50 rounded-md shadow">
+        <div class="flex gap-3 font-bold mb-4">
             {% if account.type == 'DI' %}
-                <i data-lucide="banknote"></i>
+                <i data-lucide="banknote" class="stroke-2"></i>
             {% elif account.type == 'CC' %}
-                <i data-lucide="landmark"></i>
+                <i data-lucide="landmark" class="stroke-2"></i>
             {% elif account.type == 'CA' %}
-                <i data-lucide="credit-card"></i>
+                <i data-lucide="credit-card" class="stroke-2"></i>
             {% else %}
-                <i data-lucide="piggy-bank"></i>
+                <i data-lucide="piggy-bank" class="stroke-2"></i>
             {% endif %}
             <h1>{{account.name}}</h1>
         </div>
-        <div>
-            <p>{{account.show_sum}}</p>
+        <div class="flex justify-between items-center text-center gap-10">
+            <div>Total</div>
+            <p class="">{{account.show_sum}}</p>
         </div>
-        <div>
-            <p>{{account.show_futere_sum}}</p>
+        <div class="flex justify-between items-center text-center gap-10">
+            <div>Valor previsto</div>
+            <p class="">{{account.show_futere_sum}}</p>
+        </div>
+        <div class="border-t-[0.5px] border-solid border-yellow-200 mt-6 py-4 text-right hover:text-secondary">
+            Adicionar despesa
         </div>
     </div>
-{% empty %}
+    {% empty %}
     <div class="empty_account">
         <p>Nenhuma conta foi criada</p>
     </div>
-{% endfor %}
-    {% for account in account_list %}
-    <div class="flex flex-col bg-red-500 p-6 w-32">
-        <div class="flex gap-3">
-            {% if account.type == 'DI' %}
-                <i data-lucide="banknote"></i>
-            {% elif account.type == 'CC' %}
-                <i data-lucide="landmark"></i>
-            {% elif account.type == 'CA' %}
-                <i data-lucide="credit-card"></i>
-            {% else %}
-                <i data-lucide="piggy-bank"></i>
-            {% endif %}
-            <h1>{{account.name}}</h1>
-        </div>
-        <div>
-            <p>{{account.show_sum}}</p>
-        </div>
-        <div>
-            <p>{{account.show_futere_sum}}</p>
-        </div>
-    </div>
-{% empty %}
-    <div class="empty_account">
-        <p>Nenhuma conta foi criada</p>
-    </div>
-{% endfor %}
-    {% for account in account_list %}
-    <div class="flex flex-col bg-red-500 p-6 w-32">
-        <div class="flex gap-3">
-            {% if account.type == 'DI' %}
-                <i data-lucide="banknote"></i>
-            {% elif account.type == 'CC' %}
-                <i data-lucide="landmark"></i>
-            {% elif account.type == 'CA' %}
-                <i data-lucide="credit-card"></i>
-            {% else %}
-                <i data-lucide="piggy-bank"></i>
-            {% endif %}
-            <h1>{{account.name}}</h1>
-        </div>
-        <div>
-            <p>{{account.show_sum}}</p>
-        </div>
-        <div>
-            <p>{{account.show_futere_sum}}</p>
-        </div>
-    </div>
-{% empty %}
-    <div class="empty_account">
-        <p>Nenhuma conta foi criada</p>
-    </div>
-{% endfor %}
+    {% endfor %}
 </div>
 {% endblock content %}
