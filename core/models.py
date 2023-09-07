@@ -156,8 +156,6 @@ class Money(models.Model): #* All money
 
         for object in Account.objects.order_by('name'):
 
-            object.sum()
-
             response += object.value
 
         Money.objects.update(value=response)
@@ -169,8 +167,6 @@ class Money(models.Model): #* All money
         return f'R$ {self.value:.2f}'.replace('.', ',')
 
     def show_future_value(self):
-        
-        self.calc_future_value( )
 
         return f'R$ {self.future_value:.2f}'.replace('.', ',')
     

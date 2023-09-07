@@ -3,10 +3,12 @@ from .models import Extract, Money, Account
 from .forms import NewExtract, NewAccount
 
 def index(request): 
-
     
     extract = Extract.objects.order_by('date') 
     money = Money.objects.get(id=1) 
+
+
+    money.calc_future_value()
     
     context = {'extract_list': extract, 'money': money}
     return render(request, 'pages/index.html', context=context)

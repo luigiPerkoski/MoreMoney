@@ -1,21 +1,13 @@
-/* table, th, tr{
-    border: 1px solid #0f0f0f;
-} */
-
 td, th{
     text-align: center;
     padding: 10px 0;
 }
 
 th tr {
-  /* border-collapse: ; */
-  /* border-width: 4px; */
   border-style: solid;
-  /* border-color: #000; */
   border-radius: 25px;
   padding: 10px 0;
 }
-
 
 thead th:first-child {
     border-radius: 10px 0 0 0;
