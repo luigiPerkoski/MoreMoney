@@ -156,6 +156,8 @@ class Money(models.Model): #* All money
 
         for object in Account.objects.order_by('name'):
 
+            object.sum()
+
             response += object.value
 
         Money.objects.update(value=response)
