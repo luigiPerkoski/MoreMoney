@@ -2,14 +2,14 @@
 
 {% load static %}
 
-{% block title %}Profit{% endblock title %}
+{% block title %}Damage{% endblock title %}
 
 {% block style %}<link rel="stylesheet" href="{%static 'core/css/damege.css'%}">{% endblock style %}
 
 {% block content %}
     <div class="balance">
     <div class="current_balance">
-        {{money.show_extract_damege}}
+        {{extract_damage}}
     </div>
     </div>
     <table class="w-[90%] m-auto spacing-y-5">
@@ -23,7 +23,7 @@
             </tr>
         </thead>
   <tbody>
-    {% for extract in extract_damege %}
+    {% for extract in dameges %}
     <tr>
         <td class="">
         {% if extract.pay == False %}

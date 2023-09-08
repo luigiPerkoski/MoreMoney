@@ -1,9 +1,8 @@
 from django.db import models
-import datetime
 
-# Models here 
+#! Modelos do meu banco de dados aqui
 
-class Account(models.Model): #* Accounts templates to filter between bank 
+class Account(models.Model): #* Modelo para as contas do banco 
 
     type_list = (('CC', 'Conta Corrente'),
         ('DI', 'Dinheiro'), 
@@ -27,78 +26,8 @@ class Account(models.Model): #* Accounts templates to filter between bank
     def __str__(self) -> str:
         return self.name
 
-    def __date_now(self,date_one, date_two) -> bool:
 
-        list_date_one = str(date_one).split('-')
-        list_date_two = str(date_two).split('-')
-
-        if int(list_date_one[0]) > int(list_date_two[0]):
-            return True
-        elif int(list_date_one[0]) == int(list_date_two[0]):
-            if int(list_date_one[1]) > int(list_date_two[1]):
-                  return True
-            elif int(list_date_one[1]) == int(list_date_two[1]):
-                  if int(list_date_one[2]) >= int(list_date_two[2]):
-                       return True
-                  else: 
-                       return False
-            else:
-                 return False
-        else:
-            return False
-
-    def sum(self) -> None:
-
-        value = 0
-
-        date = datetime.date.today()
-
-        for object in Extract.objects.order_by('date'):
-            if object.account == self and self.__date_now(date, object.date):
-                match object.type:
-
-                    case 'P':
-                        value += object.value
-
-                    case 'D':
-                        value -= object.value
-                    
-        
-        Account.objects.filter(id=self.id).update(value=value)   
-
-    def future_sum(self) -> None:
-        
-        value = self.value
-
-        date = datetime.date.today()
-
-
-        for object in Extract.objects.order_by('date'):
-            if object.account == self and self.__date_now(date, object.date) != True:
-                match object.type:
-
-                    case 'P':
-                        value += object.value
-
-                    case 'D':
-                        value -= object.value
-        
-        Account.objects.filter(id=self.id).update(future_value=value)
-
-    def show_sum(self) -> str:
-
-        self.sum()
-
-        return f'R$ {self.value:.2f}'.replace('.', ',')
-
-    def show_futere_sum(self) -> str:
-
-        self.future_sum()
-
-        return f'R$ {self.future_value:.2f}'.replace('.', ',')
-
-
-class Extract(models.Model): #* Extract template for saving money spending 
+class Extract(models.Model): #* Modelo para salvar os extratos
 
     type_list = (('P', 'Profit'), ('D', 'Damage'))
 
@@ -126,7 +55,7 @@ class Extract(models.Model): #* Extract template for saving money spending
         return f'R$ {self.value:.2f}'.replace('.', ',')
     
 
-class Money(models.Model): #* All money 
+class Money(models.Model): #* Modelo para salvar a soma de todo o dinheiro  
 
     name = models.CharField(max_length=50)
     value = models.FloatField()
@@ -138,66 +67,3 @@ class Money(models.Model): #* All money
     def __str__(self) -> str:
         return self.name
 
-    def calc_future_value(self):
- 
-        response = 0
-
-        for object in Account.objects.order_by('name'):
-
-            object.future_sum()
-
-            response += object.future_value
-
-        Money.objects.update(future_value=response)
-
-    def calc_value(self):
-
-        response = 0
-
-        for object in Account.objects.order_by('name'):
-
-            object.sum()
-
-            response += object.value
-
-        Money.objects.update(value=response)
-    
-    def show_value(self):
-        
-        self.calc_value()
-
-        return f'R$ {self.value:.2f}'.replace('.', ',')
-
-    def show_future_value(self):
-
-        return f'R$ {self.future_value:.2f}'.replace('.', ',')
-    
-    def calc_extract_damege(self):
-
-        value = 0
-        
-        for object in Extract.objects.filter(type='D'):
-            value += object.value
-
-        Money.objects.update(extract_damege=value)
-            
-    def calc_extract_profit(self):
-        
-        value = 0
-        
-        for object in Extract.objects.filter(type='P'):
-            value += object.value
-
-        Money.objects.update(extract_profit=value)
-
-    def show_extract_damege(self):
-        
-        self.calc_extract_damege()
-
-        return f'R$ {self.extract_damege:.2f}'.replace('.', ',')
-
-    def show_extract_profit(self):
-        
-        self.calc_extract_profit()
-
-        return f'R$ {self.extract_profit:.2f}'.replace('.', ',')

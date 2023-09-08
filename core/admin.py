@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Extract, Account, Money
 
 
-#*Class for display editing
+#! Classe para configurar o display dos meus modelos 
 
 class AdminAccount(admin.ModelAdmin):
 
@@ -23,8 +23,9 @@ class AdminExtract(admin.ModelAdmin):
 class AdminMoney(admin.ModelAdmin):
     list_display_links = ["value", "future_value"]
     list_display = ["value", "future_value"]
-#*Views import from admin
 
+
+#! Importe dos meu modelos pro admin
 
 admin.site.register(Account, AdminAccount)
 admin.site.register(Extract, AdminExtract)

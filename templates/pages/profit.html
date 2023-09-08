@@ -9,7 +9,7 @@
 {% block content %}
     <div class="balance">
     <div class="current_balance">
-        {{money.show_extract_profit}}
+        {{extract_profit}}
     </div>
     </div>
     <table class="w-[90%] m-auto spacing-y-5">
@@ -23,7 +23,7 @@
             </tr>
         </thead>
   <tbody>
-    {% for extract in extract_profit %}
+    {% for extract in profits %}
     <tr>
         <td class="">
         {% if extract.pay == False %}

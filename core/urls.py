@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
- 
+
+#! Minhas urls do core aqui
+
 urlpatterns = [
     path('',views.index, name = 'index'),
     path('accounts', views.accounts, name = 'accounts'),
