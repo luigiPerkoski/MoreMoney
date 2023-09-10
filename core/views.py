@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import Extract, Money, Account
 from .forms import NewExtract, NewAccount
+from django import forms
 
 #! Minhas funções para mostrar as paginas aqui
 
@@ -57,7 +58,7 @@ def index(request):
 
 
     #//Return
-    context = {'extract_list': extract, 'money': money, 'future_money': future_money}
+    context = {'extract_list': extract, 'money': round(money, 2), 'future_money': round(future_money, 2)}
     return render(request, 'pages/index.html', context=context)
 
 def accounts(request):
@@ -87,7 +88,7 @@ def damege(request):
     Money.objects.update(extract_damege=extract_damage)
 
     #//Return
-    context = {'dameges': damege, 'extract_damage': extract_damage}
+    context = {'dameges': damege, 'extract_damege': extract_damage}
     return render(request, 'pages/damege.html', context=context)
 
 def profit(request):
@@ -147,6 +148,17 @@ def new_account(request):
     context = {"forms": forms}
 
     return render (request, 'pages/new_account.html', context )
+
+def new_extract_from_account(request, account):
+    #*===============================================================
+    categoria_padrao = Account.objects.get(id=account)
+
+    forms = NewExtract(initial={'account': categoria_padrao})
+
+
+    context = {'forms': forms}
+
+    return render(request, 'pages/new_extract.html', context)
 
 def accounts_forms(request):
     #*=============================================================== 

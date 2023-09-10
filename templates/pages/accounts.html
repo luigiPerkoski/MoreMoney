@@ -31,7 +31,7 @@
             <p class="">{{account.show_futere_sum}}</p>
         </div>
         <div class="border-t-[0.5px] border-solid border-yellow-200 mt-6 py-4 text-right hover:text-secondary">
-            Adicionar despesa
+            <a href="{% url 'new_extract_from_account' account.id %}">Adicionar despesa</a>
         </div>
     </div>
     {% empty %}

@@ -8,9 +8,16 @@
 
 {% block content %}
     <div class="balance">
-    <div class="current_balance">
-        {{extract_damage}}
-    </div>
+    
+        <div class="bg-yellow-50 grid gap-y-3 w-1/5 p-6 border-solid border-yellow-400 border rounded-md">
+            <div class="w-full flex justify-between items-center text-center">
+                <p class="text-sm">Total</p>
+                <i data-lucide="arrow-down-circle" class="text-sm"></i>
+            </div>
+            <p class="text-3xl font-bold">
+                {{extract_damege}}
+            </p>
+        </div>
     </div>
     <table class="w-[90%] m-auto spacing-y-5">
         <thead>
