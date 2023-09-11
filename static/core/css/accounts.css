@@ -1,0 +1,17 @@
+.content_account{
+    position: relative;
+}
+
+.new_account {
+    display: flex block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 24px;
+    margin: 32px;
+}
+
+.new_account .icon{
+    margin: auto;
+    margin-right:5px;
+}

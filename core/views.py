@@ -149,7 +149,7 @@ def new_account(request):
 
     return render (request, 'pages/new_account.html', context )
 
-def new_extract_from_account(request, account):
+def new_extract_from_account(request, account): 
     #*===============================================================
     categoria_padrao = Account.objects.get(id=account)
 

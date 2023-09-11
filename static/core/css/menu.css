@@ -111,3 +111,23 @@ img.perfil{
     border: 1px solid #000000;
     border-radius: 20px;
 }
+.empty {
+    border-radius: 3px;
+    text-align: center;
+    width: 75%; /* altura da div */
+    height: fit-content;    /* largura da div*/
+    padding: 4px;
+    margin: 0 auto; /* centraliza a div horizontalmente */
+    border: 2px solid #000; /* borda preta de 2 pixels */
+    position: relative; /* permite o uso de posicionamento absoluto para a sombra */
+  }
+.empty:hover::after {
+content: "";
+position: absolute;
+top: 0px;
+left: 0px;
+right: 0px;
+bottom: 0px;
+box-shadow: 2px 2px 5px rgba(0,0,0,0.5); /* sombra preta com opacidade */
+pointer-events: none; /* evita que a sombra receba eventos do mouse */
+}
