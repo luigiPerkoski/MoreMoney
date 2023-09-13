@@ -41,9 +41,11 @@
         </div>
         {% endfor %}
     </div>  
-    <div class="new_account border border-solid border-yellow-200 bg-yellow-50 rounded-md shadow">
-        <i class="icon" data-lucide="plus-circle">  </i> Nova conta
-    </div>
+    <a href="{% url 'new_account' %}">
+        <div class="new_account border border-solid border-yellow-200 bg-yellow-50 rounded-md shadow">
+            <i class="icon" data-lucide="plus-circle">  </i> Nova conta
+        </div>
+    </a>
     
 </div>
 {% endblock content %}

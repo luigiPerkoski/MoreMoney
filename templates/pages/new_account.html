@@ -1,15 +1,15 @@
+{% extends "base/base.html" %}
+
 {% load static %}
 
-{% block title %}Accounts{% endblock title %}
+{% block title %}Conta{% endblock title %}
 
 {% block style %}<link rel="stylesheet" href="{%static 'core/css/forms.css'%}">{% endblock style %}
 
 {% block content %}
-    <form action="{% url 'account_forms' %}" method="POST">{% csrf_token%}
-        <table>
-            {{forms.as_table}}
-        </table>
-            
-        <button type="submit">Enviar</button>
-    </form> 
+<form action="{% url 'accounts_forms' %}" method="post">
+    {% csrf_token%}
+    {{forms}}
+    <input type="submit" value="Enviar">
+</form>
 {% endblock content %}

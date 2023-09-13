@@ -11,8 +11,18 @@ class NewExtract(forms.ModelForm):
         model = Extract
         fields = ('name', 'value', 'account', 'type', 'date', 'descripition', 'pay')
 
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+        }
 
 class NewAccount(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ('name', 'value', 'descripition', 'type', 'color')
+        fields = ('name', 'value', 'type', 'descripition')
+
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'})
+            }
+        
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=100, label='Pesquisar')

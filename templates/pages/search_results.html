@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block style %}{% endblock style %}
+{% block content %}  
+  {% if results %}
+    <h2>Resultados:</h2>
+    <ul>
+      {% for item in results %}
+        <li>{{ item.nome }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Nenhum resultado encontrado.</p>
+  {% endif %}
+{% endblock content %}

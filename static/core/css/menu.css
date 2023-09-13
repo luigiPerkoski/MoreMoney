@@ -131,3 +131,7 @@ bottom: 0px;
 box-shadow: 2px 2px 5px rgba(0,0,0,0.5); /* sombra preta com opacidade */
 pointer-events: none; /* evita que a sombra receba eventos do mouse */
 }
+form#search{
+    width: 200px;
+    align-items: end;
+}

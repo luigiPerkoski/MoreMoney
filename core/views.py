@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import Extract, Money, Account
-from .forms import NewExtract, NewAccount
-from django import forms
+from .forms import NewExtract, NewAccount, SearchForm
 
 #! Minhas funções para mostrar as paginas aqui
 
@@ -58,7 +57,7 @@ def index(request):
 
 
     #//Return
-    context = {'extract_list': extract, 'money': round(money, 2), 'future_money': round(future_money, 2)}
+    context = {'extract_list': extract, 'money': round(money, 2), 'future_money': round(future_money, 2), 'len_extract_list':len(extract)}
     return render(request, 'pages/index.html', context=context)
 
 def accounts(request):
@@ -130,7 +129,11 @@ def new_extract(request):
     #*===============================================================
     forms = NewExtract()
 
-    context = {'forms': forms}
+    accounts = Account.objects.order_by('name')
+
+    context = {}
+
+    context = {'forms': forms, "contas": accounts}
 
     return render(request, 'pages/new_extract.html', context)
 
@@ -143,9 +146,10 @@ def extract_forms(request):
 
 def new_account(request):
     #*===============================================================
+    accounts = Account.objects.order_by('name')
     forms = NewAccount()
 
-    context = {"forms": forms}
+    context = {"contas": accounts, 'forms': forms}
 
     return render (request, 'pages/new_account.html', context )
 
@@ -166,3 +170,17 @@ def accounts_forms(request):
     if forms.is_valid():
         forms.save()
         return redirect(index)
+
+def search_view(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Extract.objects.filter(name=query)
+        else:
+            results = []
+    else:
+        form = SearchForm()
+        results = []
+
+    return render(request, 'search_results.html', {'form': form, 'results': results})
