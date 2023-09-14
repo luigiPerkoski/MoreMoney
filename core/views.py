@@ -6,8 +6,7 @@ from .forms import NewExtract, NewAccount, SearchForm
 
 def index(request):
     #*===============================================================
-    extract = Extract.objects.order_by('date') 
-
+    form = SearchForm()
 
     #// Check se exite um objeto no modelo Money
     if len(Money.objects.order_by('name')) < 1:
@@ -55,9 +54,21 @@ def index(request):
 
     Money.objects.update(value=money, future_value=future_money)
 
+    #//Pesquisa
+
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            extract = Extract.objects.filter(name=query)
+        else:
+            extract = Extract.objects.order_by('date') 
+    else:
+        form = SearchForm()
+        extract = Extract.objects.order_by('date') 
 
     #//Return
-    context = {'extract_list': extract, 'money': round(money, 2), 'future_money': round(future_money, 2), 'len_extract_list':len(extract)}
+    context = {'extract_list': extract, 'money': round(money, 2), 'future_money': round(future_money, 2), 'len_extract_list':len(extract), 'form': form}
     return render(request, 'pages/index.html', context=context)
 
 def accounts(request):
@@ -87,7 +98,7 @@ def damege(request):
     Money.objects.update(extract_damege=extract_damage)
 
     #//Return
-    context = {'dameges': damege, 'extract_damege': extract_damage}
+    context = {'dameges': damege, 'extract_damege': extract_damage, 'len_dameges': len(damege)}
     return render(request, 'pages/damege.html', context=context)
 
 def profit(request):
@@ -109,7 +120,7 @@ def profit(request):
     Money.objects.update(extract_profit=extract_profit)
 
     #//Return
-    context = {'profits': profit, 'extract_profit': extract_profit}
+    context = {'profits': profit, 'extract_profit': extract_profit, 'len_profits': len(profit)}
     return render(request, 'pages/profit.html', context=context)
 
 def processar_formulario(request, id):
@@ -182,5 +193,7 @@ def search_view(request):
     else:
         form = SearchForm()
         results = []
+    
+    context = {'form': form, 'results': results}
 
-    return render(request, 'search_results.html', {'form': form, 'results': results})
+    return redirect('/')

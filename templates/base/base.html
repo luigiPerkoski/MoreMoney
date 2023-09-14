@@ -79,12 +79,12 @@
             <div class="search-container">
                 <div class="research">
                     <div class="search">
-                        <form action="{% url 'search_view' %}" method="post" id="search" >
+                        <form action="{% url 'index' %}" method="post" id="search" >
                             {% csrf_token %}
                             {{ form }}
-                        <button type="submit" id="profile">
-                            <i data-lucide="search"></i>
-                        </button>
+                            <button type="submit" id="profile">
+                                <i data-lucide="search"></i>
+                            </button>
                         </form>
                     </div>
                 </div>

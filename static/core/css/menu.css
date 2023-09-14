@@ -85,7 +85,6 @@ a.button_reserch{
     justify-content: center;
 } 
 .search {
-    border: 1px solid #000000;
     display: flex;
     border-radius: 20px;
 }
@@ -95,7 +94,6 @@ a.button_reserch{
     padding: 10px 10px;
     margin: 0 10px;
     border-radius: 20px;
-    border: 1px solid #000000;
     background-color: #fff;
 }
 .perfil{
@@ -114,12 +112,11 @@ img.perfil{
 .empty {
     border-radius: 3px;
     text-align: center;
-    width: 75%; /* altura da div */
-    height: fit-content;    /* largura da div*/
+    width: 75%; 
+    height: fit-content;
     padding: 4px;
-    margin: 0 auto; /* centraliza a div horizontalmente */
-    border: 2px solid #000; /* borda preta de 2 pixels */
-    position: relative; /* permite o uso de posicionamento absoluto para a sombra */
+    margin: 0 auto; 
+    border: 2px solid #000; 
   }
 .empty:hover::after {
 content: "";
@@ -128,10 +125,25 @@ top: 0px;
 left: 0px;
 right: 0px;
 bottom: 0px;
-box-shadow: 2px 2px 5px rgba(0,0,0,0.5); /* sombra preta com opacidade */
-pointer-events: none; /* evita que a sombra receba eventos do mouse */
+box-shadow: 2px 2px 5px rgba(0,0,0,0.5); 
+pointer-events: none; 
 }
 form#search{
     width: 200px;
-    align-items: end;
+    display: flex;
+}
+
+label{
+    display: none;
+}
+
+input#id_query{
+    margin: 3px 0;
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #000000;
+}
+button#profile{
+    margin: 0 5px;
 }

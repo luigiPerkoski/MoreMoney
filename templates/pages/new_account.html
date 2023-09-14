@@ -7,7 +7,7 @@
 {% block style %}<link rel="stylesheet" href="{%static 'core/css/forms.css'%}">{% endblock style %}
 
 {% block content %}
-<form action="{% url 'accounts_forms' %}" method="post">
+<form action="{% url 'account_forms' %}" method="post">
     {% csrf_token%}
     {{forms}}
     <input type="submit" value="Enviar">
