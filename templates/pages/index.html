@@ -2,7 +2,14 @@
 
 {% load static %}
 
+{% block title %}Menu{% endblock title %}
+
 {% block style %}<link rel="stylesheet" href="{%static 'core/css/index.css'%}">{% endblock style %}
+
+{% block profile %}
+    {% include "partials/_profile.html" %}
+{% endblock profile %}
+
 {% block content %}
     <div class="balance">
         <div class="bg-yellow-50 grid gap-y-3 w-1/5 p-6 border-solid border-yellow-400 border rounded-md">

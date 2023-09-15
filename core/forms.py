@@ -25,4 +25,4 @@ class NewAccount(forms.ModelForm):
             }
         
 class SearchForm(forms.Form):
-    query = forms.CharField(max_length=100, label='Pesquisar')
+    query = forms.CharField(max_length=100)

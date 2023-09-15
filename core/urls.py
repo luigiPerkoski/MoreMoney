@@ -14,5 +14,4 @@ urlpatterns = [
     path('new_account', views.new_account, name='new_account'),
     path('account_forms', views.accounts_forms, name='account_forms'),
     path('new_extract/<account>', views.new_extract_from_account,name='new_extract_from_account'),
-    path('search/', views.search_view, name='search_view'),
 ]

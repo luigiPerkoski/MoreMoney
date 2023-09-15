@@ -52,7 +52,6 @@ div.profile{
     padding: 20px;
     margin: 0 0;
     display: flex;
-    border: 1px solid #000000; 
 }
 .user-container {
     display: flex;
@@ -146,4 +145,8 @@ input#id_query{
 }
 button#profile{
     margin: 0 5px;
+}
+
+.errorlist{
+    display: none;
 }

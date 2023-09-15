@@ -6,7 +6,9 @@ from .forms import NewExtract, NewAccount, SearchForm
 
 def index(request):
     #*===============================================================
+    extract = Extract.objects.order_by('date') 
     form = SearchForm()
+    response = []
 
     #// Check se exite um objeto no modelo Money
     if len(Money.objects.order_by('name')) < 1:
@@ -60,7 +62,10 @@ def index(request):
         form = SearchForm(request.POST)
         if form.is_valid():
             query = form.cleaned_data['query']
-            extract = Extract.objects.filter(name=query)
+            for c in extract:
+                if query.upper() in c.name.upper():
+                    response.append(c)
+            extract = response[:]
         else:
             extract = Extract.objects.order_by('date') 
     else:
@@ -74,14 +79,31 @@ def index(request):
 def accounts(request):
     #*===============================================================
     account = Account.objects.order_by('name')
+    response = []
+    #//Pesquisa
+
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            for c in account:
+                if query.upper() in c.name.upper():
+                    response.append(c)
+            account = response[:]
+        else:
+            account = Account.objects.order_by('name') 
+    else:
+        form = SearchForm()
+        account = Account.objects.order_by('name')
 
     #//Return
-    context = {'account_list': account}
+    context = {'account_list': account, 'form': form}
     return render(request, 'pages/accounts.html', context=context)
 
 def damege(request):
     #*===============================================================
     damege = Extract.objects.filter(type='D')
+    form = SearchForm()
 
     #// Check se exite um objeto no modelo Money
     if len(Money.objects.order_by('name')) < 1:
@@ -97,13 +119,17 @@ def damege(request):
 
     Money.objects.update(extract_damege=extract_damage)
 
+    #//Pesquisa
+    
+
     #//Return
-    context = {'dameges': damege, 'extract_damege': extract_damage, 'len_dameges': len(damege)}
+    context = {'dameges': damege, 'extract_damege': extract_damage, 'len_dameges': len(damege), 'form': form}
     return render(request, 'pages/damege.html', context=context)
 
 def profit(request):
     #*===============================================================
     profit = Extract.objects.filter(type='P')
+    form = SearchForm()
 
     #// Check se exite um objeto no modelo Money
     if len(Money.objects.order_by('name')) < 1:
@@ -119,8 +145,11 @@ def profit(request):
 
     Money.objects.update(extract_profit=extract_profit)
 
+    #//Pesquisa
+
+
     #//Return
-    context = {'profits': profit, 'extract_profit': extract_profit, 'len_profits': len(profit)}
+    context = {'profits': profit, 'extract_profit': extract_profit, 'len_profits': len(profit), 'form': form}
     return render(request, 'pages/profit.html', context=context)
 
 def processar_formulario(request, id):

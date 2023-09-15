@@ -1,12 +1,13 @@
-{% load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project | {% block title %}{% endblock title %}</title>
-    <link rel="stylesheet" href="{%static 'core/css/menu.css'%}">
-    <link rel="stylesheet" href="{%static 'core/css/table.css'%}">
+    <link rel="stylesheet" href="{% static 'core/css/menu.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/table.css' %}">
+    <link rel="shortcut icon" href="{% static 'core/icon/favicon.ico' %}" type="image/x-icon">
     {% block style %}{% endblock style %}
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -24,89 +25,54 @@
         }
     </script>
     <style type="text/tailwindcss">
-    @layer base {
-        thead tr { @apply drop-shadow-md; }
-        tr { @apply bg-white shadow hover:drop-shadow-md; }
-        tbody, table, thead,tr { @apply border-spacing-y-2; }
-        table {
-        border: 0;
-        border-collapse: separate; 
-        border-spacing: 0 1px;
-        }
+        @layer base {
+            thead tr { @apply drop-shadow-md; }
+            tr { @apply bg-white shadow hover:drop-shadow-md; }
+            tbody, table, thead, tr { @apply border-spacing-y-2; }
+            table {
+                border: 0;
+                border-collapse: separate; 
+                border-spacing: 0 1px;
+            }
 
-        thead tr th {
-        border-collapse: separate; 
-        border-spacing: 1px 1px;
-        padding: 10px 0;
-        } 
+            thead tr th {
+                border-collapse: separate; 
+                border-spacing: 1px 1px;
+                padding: 10px 0;
+            } 
 
-        tbody tr#first td {
-        border-top: 3px solid #4d4d4d; 
-        border-collapse: separate;
-        border-spacing: 1px 1px;
-        }
+            tbody tr#first td {
+                border-top: 3px solid #4d4d4d; 
+                border-collapse: separate;
+                border-spacing: 1px 1px;
+            }
 
-        td{
-            padding: 10px 0;
-        }
+            td {
+                padding: 10px 0;
+            }
 
-        html, body {
-            @apply h-screen;
+            html, body {
+                @apply h-screen;
+            }
         }
-    }
     </style>
 </head>
 <body>
-    <div class="h-full px-4 justify-evenly flex flex-col border-solid border-black border-r-[1px]">
-        <a class="" href="{% url 'new_extract' %}">
-            <i class="w-10 h-10" data-lucide="plus-square"></i>
-        </a>
-        <a class="" href="{% url 'index' %}">
-            <i class="w-10 h-10" data-lucide="line-chart"></i>
-        </a>
-        <a href="{% url 'profit' %}">
-            <i class="w-10 h-10" data-lucide="trending-up"></i>
-        </a>
-        <a href="{% url 'damage' %}">
-            <i class="w-10 h-10" data-lucide="trending-down"></i>
-        </a>
-        <a href="{% url 'accounts' %}">
-            <i class="w-10 h-10" data-lucide="wallet"></i>
-        </a>
-    </div>
+    {% include "partials/_menu.html" %}
     <div class="content w-full overflow-x-hidden">
-        <div class="profile">
-            <div class="search-container">
-                <div class="research">
-                    <div class="search">
-                        <form action="{% url 'index' %}" method="post" id="search" >
-                            {% csrf_token %}
-                            {{ form }}
-                            <button type="submit" id="profile">
-                                <i data-lucide="search"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="user-container">    
-                <div class="button"><a href="#">Login</a></div>
-                <div class="button"><a href="#">Register</a></div>
-                <div class="perfil">
-                    <a href="#">                    
-                        <i class="w-10 h-10" data-lucide="user-circle-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    
-    <!-- <div class="w-full"> -->
+        {% block profile %}
+        
+        {% endblock profile %}
+
+<!--content-->
+
         {% block content %}
+
         {% endblock content %}
-    <!-- </div> -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-      lucide.createIcons();
-    </script>
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <script>
+            lucide.createIcons();
+        </script>
+    </div>
 </body>
 </html>
