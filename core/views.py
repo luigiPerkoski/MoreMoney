@@ -226,3 +226,9 @@ def search_view(request):
     context = {'form': form, 'results': results}
 
     return redirect('/')
+
+def delete_extract(request, id):
+
+    post = Extract.objects.get(id=id)
+    post.delete()
+    return redirect('index')

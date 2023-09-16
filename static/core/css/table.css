@@ -1,6 +1,7 @@
 td, th{
     text-align: center;
     padding: 10px 0;
+    min-width: fit-content;
 }
 
 th tr {
@@ -15,4 +16,17 @@ thead th:first-child {
 
 thead th:last-child {
     border-radius: 0 10px 0 0;
+}
+td.icon-table{
+    display: flex;
+    color: #8f8f8f59;
+}
+
+div.icon-table{
+    width: fit-content;
+    align-items: center;
+}
+
+svg.lucide.lucide-pen-square{
+    align-items: end;
 }

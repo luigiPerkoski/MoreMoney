@@ -40,7 +40,8 @@
                 <th class="border-y border-solid border-yellow-400">Type</th>
                 <th class="border-y border-solid border-yellow-400">Account</th>
                 <th class="border-y border-solid border-yellow-400">date</th>
-                <th class="border-y border-r border-solid border-yellow-400">value</th>
+                <th class="border-y border-solid border-yellow-400">value</th>
+                <th class="border-y border-r border-solid border-yellow-400">          </th>
             </tr>
         </thead>
     <tbody>
@@ -56,7 +57,7 @@
                     <input type="checkbox" name="pay_checkbox_{{extract.id}}" value="" checked="False" onchange="document.getElementById('form_pay_{{extract.id}}').submit()">
                 {% endif %}
                 </form>
-            </td>
+            </td> 
             
 
             <td class="">{{extract.name}}</td>
@@ -75,7 +76,16 @@
 
             <td class="">{{extract.show_money}}</td>
 
-            
+            <td class="icon-table">
+                <form action="{% url 'delete_extract' extract.id %}" id="form_pay_{{extract.id}}" method="POST">{% csrf_token%}
+                    <button type="submit" value="" name="delete_button_{{extract.id}}">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                </form> 
+                <a href="#">
+                    <i data-lucide="pen-square"></i>
+                </a>
+            </td>
         </tr>
         {% empty %}
             <div class="empty">
