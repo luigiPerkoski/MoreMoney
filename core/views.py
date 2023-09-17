@@ -157,7 +157,7 @@ def profit(request):
     context = {'profits': profit, 'extract_profit': extract_profit,'future_extract_profit': future_extract_profit, 'len_profits': len(profit), 'form': form}
     return render(request, 'pages/profit.html', context=context)
 
-def processar_formulario(request, id):
+def processar_formulario(request, page, id):
     #*===============================================================
     if request.method == 'POST':
 
@@ -168,7 +168,7 @@ def processar_formulario(request, id):
         else:
             Extract.objects.filter(id=id).update(pay=True)
         
-        return redirect(index)
+        return redirect(page)
     
 def new_extract(request):
     #*===============================================================

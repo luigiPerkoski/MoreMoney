@@ -49,7 +49,7 @@
     {% for extract in dameges %}
     <tr>
         <td class="">
-            <form action="{% url 'processar_formulario' extract.id %}" id="form_pay_{{extract.id}}" method="POST">{% csrf_token%}
+            <form action="{% url 'processar_formulario' 'damage' extract.id %}" id="form_pay_{{extract.id}}" method="POST">{% csrf_token%}
             {% if extract.pay == False %}
                 <input type="checkbox" name="pay_checkbox_{{extract.id}}" value="" onchange="document.getElementById('form_pay_{{extract.id}}').submit()">
             {% else %}
