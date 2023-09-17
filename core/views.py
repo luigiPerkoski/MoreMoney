@@ -117,6 +117,7 @@ def damege(request):
     for object in damege:
         if object.pay:
             extract_damage += object.value
+            future_extract_damage += object.value
         else:
             future_extract_damage += object.value
 
@@ -145,6 +146,7 @@ def profit(request):
     for object in profit:
         if object.pay:
             extract_profit += object.value
+            future_extract_profit += object.value
         else:
             future_extract_profit += object.value
 
