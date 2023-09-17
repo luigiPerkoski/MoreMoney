@@ -112,10 +112,13 @@ def damege(request):
 
     #//Calcula o total de extratos negativos 
     extract_damage = 0
+    future_extract_damage = 0
     
     for object in damege:
         if object.pay:
             extract_damage += object.value
+        else:
+            future_extract_damage += object.value
 
     Money.objects.update(extract_damege=extract_damage)
 
@@ -123,7 +126,7 @@ def damege(request):
     
 
     #//Return
-    context = {'dameges': damege, 'extract_damege': extract_damage, 'len_dameges': len(damege), 'form': form}
+    context = {'dameges': damege, 'extract_damege': extract_damage,'future_extract_damage': future_extract_damage, 'len_dameges': len(damege), 'form': form}
     return render(request, 'pages/damege.html', context=context)
 
 def profit(request):
@@ -138,10 +141,12 @@ def profit(request):
 
     #//Calcula o total de extratos positivos  
     extract_profit = 0
-    
+    future_extract_profit = 0
     for object in profit:
         if object.pay:
             extract_profit += object.value
+        else:
+            future_extract_profit += object.value
 
     Money.objects.update(extract_profit=extract_profit)
 
@@ -149,7 +154,7 @@ def profit(request):
 
 
     #//Return
-    context = {'profits': profit, 'extract_profit': extract_profit, 'len_profits': len(profit), 'form': form}
+    context = {'profits': profit, 'extract_profit': extract_profit,'future_extract_profit': future_extract_profit, 'len_profits': len(profit), 'form': form}
     return render(request, 'pages/profit.html', context=context)
 
 def processar_formulario(request, id):
