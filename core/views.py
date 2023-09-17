@@ -234,6 +234,7 @@ def accounts_forms(request):
         return redirect (index)
 
 def search_view(request):
+    #*=============================================================== 
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
@@ -250,7 +251,13 @@ def search_view(request):
     return redirect('/')
 
 def delete_extract(request, id):
-
+    #*=============================================================== 
     post = Extract.objects.get(id=id)
     post.delete()
     return redirect('index')
+
+def delete_account(request, id):
+    #*=============================================================== 
+    post = Account.objects.get(id=id)
+    post.delete()
+    return redirect('accounts')

@@ -25,7 +25,7 @@ class Account(models.Model): #* Modelo para as contas do banco
     
     def __str__(self) -> str:
         return self.name
-
+        
 
 class Extract(models.Model): #* Modelo para salvar os extratos
 
