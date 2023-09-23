@@ -178,8 +178,6 @@ def new_extract(request):
 
     accounts = Account.objects.order_by('name')
 
-    context = {}
-
     context = {'forms': forms, "contas": accounts}
 
     return render(request, 'pages/new_extract.html', context)
@@ -263,3 +261,14 @@ def delete_account(request, id):
     post = Account.objects.get(id=id)
     post.delete()
     return redirect('accounts')
+
+def extract(request, id):
+
+    extract = Extract.objects.get(id=id)
+
+    forms = NewExtract(initial={'name': extract.name, 'value':extract.value, 'account': extract.account, 'type': extract.type, 'date': extract.date, 'pay': extract.pay, 'description': extract.descripition})
+
+
+    context = {'forms': forms}
+
+    return render(request, 'pages/extract.html', context)

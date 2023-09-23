@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %}Extrato{% endblock title %}
+
+{% block style %}<link rel="stylesheet" href="{%static 'core/css/update.css'%}">{% endblock style %}
+
+{% block content %}
+<form action="{% url 'extract_forms' %}" method="post">
+    {% csrf_token%}
+    {{forms}}
+    <div class="input">
+    <input class="voltar" value="Voltar">
+    <input type="submit" value="Alterar"> 
+</div>
+</form>
+{% endblock content %}

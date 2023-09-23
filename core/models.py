@@ -62,6 +62,7 @@ class Money(models.Model): #* Modelo para salvar a soma de todo o dinheiro
     future_value = models.FloatField()
     extract_damege = models.FloatField()
     extract_profit = models.FloatField()
+    teste = models.CharField(max_length=50)
 
 
     def __str__(self) -> str:
