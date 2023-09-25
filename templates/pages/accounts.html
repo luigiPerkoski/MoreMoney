@@ -61,11 +61,14 @@
             <div class="flex border-t-[0.5px] border-solid border-yellow-200 mt-6 py-4 text-right hover:text-secondary">
                 
                 <a class="pr-16" href="{% url 'new_extract_from_account' account.id %}">Adicionar despesa</a>
-                <form action="{% url 'delete_account' account.id %}" id="form_pay_{{extract.id}}" method="POST">{% csrf_token%}
-                    <button type="submit" value="" name="delete_button_{{extract.id}}">
+                <form action="{% url 'delete_account' account.id %}" id="form_pay_{{account.id}}" method="POST">{% csrf_token%}
+                    <button type="submit" value="" name="delete_button_{{account.id}}">
                         <i data-lucide="trash-2"></i>
                     </button>
                 </form>
+                <a href="{% url "account" account.id %}">
+                    <i data-lucide="pen-square"></i>
+                </a>
             </div>
         </div>
         {% empty %}

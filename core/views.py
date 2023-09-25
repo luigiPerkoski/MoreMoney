@@ -263,6 +263,7 @@ def delete_account(request, id):
     return redirect('accounts')
 
 def extract(request, id):
+    #*=============================================================== 
 
     extract = Extract.objects.get(id=id)
 
@@ -274,6 +275,7 @@ def extract(request, id):
     return render(request, 'pages/extract.html', context)
 
 def extract_forms_update(request, id):
+    #*=============================================================== 
     
     item = Extract.objects.get(id=id)
     if request.method == 'POST':
@@ -283,5 +285,36 @@ def extract_forms_update(request, id):
             return redirect('/')
     else:
         form = NewExtract(initial={'name': extract.name, 'value':extract.value, 'account': extract.account, 'type': extract.type, 'date': extract.date, 'pay': extract.pay, 'descripition': extract.descripition})
+
+    return render(request, 'extract.html', {'form': form})
+
+def account(request, id):
+    #*=============================================================== 
+
+    account = Account.objects.get(id=id)
+
+    forms = NewAccount(initial={
+
+    })
+
+
+    context = {'forms': forms, 'id': id}
+
+    return render(request, 'pages/account.html', context)
+
+def account_forms_update(request,id):
+    #*===============================================================
+    
+    item = Account.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = NewAccount(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts')
+    else:
+        form = NewAccount(initial={
+
+        })
 
     return render(request, 'extract.html', {'form': form})
