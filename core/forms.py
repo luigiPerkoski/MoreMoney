@@ -15,6 +15,7 @@ class NewExtract(forms.ModelForm):
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'value': forms.TextInput(attrs={'type': 'text'}),
+            'descripition':forms.Textarea(attrs={'required': False})
         }
 
         
@@ -28,6 +29,7 @@ class NewAccount(forms.ModelForm):
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'value': forms.TextInput(attrs={'type': 'text'}),
+            'descripition':forms.Textarea(attrs={'required': False})
             }
     
 class SearchForm(forms.Form):

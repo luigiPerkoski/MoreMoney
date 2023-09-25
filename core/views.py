@@ -186,18 +186,8 @@ def extract_forms(request):
     #*===============================================================
     forms = NewExtract(request.POST)
     if forms.is_valid():
-        name = forms.cleaned_data['name']
-        value = forms.cleaned_data['value']
-        account = forms.cleaned_data['account']
-        type = forms.cleaned_data['type']
-        date = forms.cleaned_data['date']
-        description = forms.cleaned_data['description']
-        pay = forms.cleaned_data['pay']
-
-        object = Extract(name=name, value=value, account=account, type=type, date=date, descripition=description, pay=pay)
-
-        object.save()
-        return redirect (index)
+        forms.save()
+    return redirect (index)
 
 def new_account(request):
     #*===============================================================
@@ -223,15 +213,8 @@ def accounts_forms(request):
     #*=============================================================== 
     forms = NewAccount(request.POST)
     if forms.is_valid():
-        name = forms.cleaned_data['name']
-        value = forms.cleaned_data['value']
-        type = forms.cleaned_data['type']
-        description = forms.cleaned_data['description']
-
-        object = Account(name=name, value=value, type=type, descripition=description)
-
-        object.save()
-        return redirect (index)
+        forms.save()
+    return redirect (index)
 
 def search_view(request):
     #*=============================================================== 

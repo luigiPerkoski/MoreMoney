@@ -18,7 +18,7 @@ class Account(models.Model): #* Modelo para as contas do banco
     name = models.CharField(max_length=50)
     value = models.FloatField(null=True) 
     future_value = models.FloatField(default=0) 
-    descripition = models.TextField(max_length=300, null=True)
+    descripition = models.TextField(max_length=300, blank=True)
     type = models.CharField(choices=type_list, blank=False, null=False, max_length=2)
     color = models.CharField(choices=color_list, blank=False, null=False, max_length=2)
     
@@ -37,7 +37,7 @@ class Extract(models.Model): #* Modelo para salvar os extratos
     account = models.ForeignKey(Account, on_delete= models.CASCADE) 
     type = models.CharField(max_length=1, choices=type_list, blank=False, null=False, )
     date = models.DateField(blank=False, null=False)
-    descripition = models.TextField(max_length=300)
+    descripition = models.TextField(max_length=300, blank=True)
     pay = models.BooleanField(default=True)
 
 
