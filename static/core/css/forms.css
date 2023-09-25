@@ -74,14 +74,13 @@ input#pago{
     margin: 5px auto auto auto;
 }
 
-textarea#id_description{
-    width: 250px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: none;
-}
-
 input#id_pay{
     display: flex;
     width: fit-content;
+}
+textarea {
+    width: 250px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    resize: none;
 }

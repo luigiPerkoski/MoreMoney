@@ -16,5 +16,6 @@ urlpatterns = [
     path('new_extract/<account>', views.new_extract_from_account,name='new_extract_from_account'),
     path('delete_extract/<id>', views.delete_extract, name = 'delete_extract'),
     path('delete_account/<id>', views.delete_account, name = 'delete_account'),
-    path('extract/<id>', views.extract, name = 'extract')
+    path('extract/<id>', views.extract, name = 'extract'),
+    path('extract_forms_update/<id>', views.extract_forms_update, name = 'extract_forms_update')
 ]

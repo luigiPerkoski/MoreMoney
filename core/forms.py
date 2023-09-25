@@ -10,14 +10,12 @@ class NewExtract(forms.ModelForm):
     
     class Meta:
         model = Extract
-        fields = ('name', 'value', 'account', 'type', 'date', 'pay')
+        fields = ('name', 'value', 'account', 'type', 'date', 'pay', 'descripition')
 
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'value': forms.TextInput(attrs={'type': 'text'}),
         }
-
-    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 4}), required=False)
 
         
     
@@ -25,12 +23,12 @@ class NewExtract(forms.ModelForm):
 class NewAccount(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ('name', 'value', 'type')
+        fields = ('name', 'value', 'type', 'descripition')
 
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'value': forms.TextInput(attrs={'type': 'text'}),
             }
-    description = forms.CharField(widget=forms.Textarea(attrs={'rows': 4}), required=False)
+    
 class SearchForm(forms.Form):
     query = forms.CharField(max_length=100)

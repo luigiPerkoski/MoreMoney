@@ -266,9 +266,22 @@ def extract(request, id):
 
     extract = Extract.objects.get(id=id)
 
-    forms = NewExtract(initial={'name': extract.name, 'value':extract.value, 'account': extract.account, 'type': extract.type, 'date': extract.date, 'pay': extract.pay, 'description': extract.descripition})
+    forms = NewExtract(initial={'name': extract.name, 'value':extract.value, 'account': extract.account, 'type': extract.type, 'date': extract.date, 'pay': extract.pay, 'descripition': extract.descripition})
 
 
-    context = {'forms': forms}
+    context = {'forms': forms, 'id': id}
 
     return render(request, 'pages/extract.html', context)
+
+def extract_forms_update(request, id):
+    
+    item = Extract.objects.get(id=id)
+    if request.method == 'POST':
+        form = NewExtract(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = NewExtract(initial={'name': extract.name, 'value':extract.value, 'account': extract.account, 'type': extract.type, 'date': extract.date, 'pay': extract.pay, 'descripition': extract.descripition})
+
+    return render(request, 'extract.html', {'form': form})
