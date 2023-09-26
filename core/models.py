@@ -4,26 +4,29 @@ from django.db import models
 
 class Account(models.Model): #* Modelo para as contas do banco 
 
-    type_list = (('CC', 'Conta Corrente'),
+    type_list = (
+        ('CC', 'Conta Corrente'),
         ('DI', 'Dinheiro'), 
         ('CA', 'Cartao'), 
-        ('IN', 'Investimento'))
-    
-    color_list = (('R', 'Vermelho'),
-        ('B', 'Azul'),
-        ('P', 'Roxo'),
-        ('O', 'Laranja'))
-    
+        ('IN', 'Investimento')
+    )
         
     name = models.CharField(max_length=50)
     value = models.FloatField(null=True) 
+    extract_value = models.FloatField(default=0) 
+    future_extract_value = models.FloatField(default=0) 
     descripition = models.TextField(max_length=300, blank=True)
     type = models.CharField(choices=type_list, blank=False, null=False, max_length=2)
-    color = models.CharField(choices=color_list, blank=False, null=False, max_length=2)
     
     
     def __str__(self) -> str:
         return self.name
+
+    def show_value(self):
+        return f'{self.extract_value + self.value:.2f}'.replace('.',',')
+
+    def show_future_value(self):
+        return f'{self.future_extract_value + self.value:.2f}'.replace('.',',')
         
 
 class Extract(models.Model): #* Modelo para salvar os extratos

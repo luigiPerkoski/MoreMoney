@@ -55,8 +55,29 @@ def index(request):
 
 def accounts(request):
     #*===============================================================
-    account = Account.objects.order_by('name')
+    account = Account.objects.all()
     response = []
+    value_account = []
+
+    #//Valor por conta
+    for conta in Account.objects.all():
+        future_value = 0
+        value = 0
+        for object in Extract.objects.all():
+            if object.pay and object.account == conta:
+                match object.type:
+                    case 'P':
+                        value += object.value
+                    case 'D':
+                        value -= object.value  
+            if object.account == conta:
+                match object.type:
+                    case 'P':
+                        future_value += object.value
+                    case 'D':
+                        future_value -= object.value   
+        Account.objects.filter(id=conta.id).update(extract_value=value,future_extract_value=future_value)
+            
     #//Pesquisa
 
     if request.method == 'POST':
@@ -82,11 +103,6 @@ def damege(request):
     damege = Extract.objects.filter(type='D')
     form = SearchForm()
 
-    #// Check se exite um objeto no modelo Money
-    if len(Money.objects.order_by('name')) < 1:
-        money = Money(name="Money",value=0, future_value=0, extract_profit=0, extract_damege=0)
-        money.save()
-
     #//Calcula o total de extratos negativos 
     extract_damage = 0
     future_extract_damage = 0
@@ -97,8 +113,6 @@ def damege(request):
             future_extract_damage += object.value
         else:
             future_extract_damage += object.value
-
-    Money.objects.update(extract_damege=extract_damage)
 
     #//Pesquisa
     
@@ -112,11 +126,6 @@ def profit(request):
     profit = Extract.objects.filter(type='P')
     form = SearchForm()
 
-    #// Check se exite um objeto no modelo Money
-    if len(Money.objects.order_by('name')) < 1:
-        money = Money(name="Money",value=0, future_value=0, extract_profit=0, extract_damege=0)
-        money.save()
-
     #//Calcula o total de extratos positivos  
     extract_profit = 0
     future_extract_profit = 0
@@ -126,8 +135,6 @@ def profit(request):
             future_extract_profit += object.value
         else:
             future_extract_profit += object.value
-
-    Money.objects.update(extract_profit=extract_profit)
 
     #//Pesquisa
 
