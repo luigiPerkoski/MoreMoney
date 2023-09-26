@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .models import Extract, Money, Account
+from .models import Extract, Account
 from .forms import NewExtract, NewAccount, SearchForm
 
 #! Minhas funções para mostrar as paginas aqui
@@ -10,51 +10,28 @@ def index(request):
     form = SearchForm()
     response = []
 
-    #// Check se exite um objeto no modelo Money
-    if len(Money.objects.order_by('name')) < 1:
-        money = Money(name="Money",value=0, future_value=0, extract_profit=0, extract_damege=0)
-        money.save()
+    #//Calcula o total 
 
+    value = 0
+    future_value = 0
 
-
-    #//Calcula o total em cada conta 
-    for accounts in Account.objects.order_by('name'):
-
-        value = 0
-        future_value = 0
-
-        for object in Extract.objects.order_by('date'):
-            if object.account == accounts:
-                match object.type:
-
-                    case 'P':
-                        future_value += object.value
-
-                    case 'D':
-                        future_value -= object.value
+    for object in Extract.objects.all():
+        match object.type:
+            case 'P':
+                future_value += object.value
+            case 'D':
+                future_value -= object.value
             
-            if object.account == accounts and object.pay:
-                match object.type:
+        if object.pay:
+            match object.type:
+                case 'P':
+                    value += object.value
+                case 'D':
+                    value -= object.value  
 
-                    case 'P':
-                        value += object.value
-
-                    case 'D':
-                        value -= object.value
-        
-        Account.objects.filter(id=accounts.id).update(future_value=future_value, value=value)
-
-
-    #//Atualiza o total de dinheiro 
-    money = 0
-    future_money = 0
-
-    for object in Account.objects.order_by('name'):
-
-        future_money += object.future_value
-        money += object.value
-
-    Money.objects.update(value=money, future_value=future_money)
+    for object in Account.objects.all():
+        value += object.value
+        future_value += object.value
 
     #//Pesquisa
 
@@ -73,7 +50,7 @@ def index(request):
         extract = Extract.objects.order_by('date') 
 
     #//Return
-    context = {'extract_list': extract, 'money': round(money, 2), 'future_money': round(future_money, 2), 'len_extract_list':len(extract), 'form': form}
+    context = {'extract_list': extract, 'money': round(value, 2), 'future_money': round(future_value, 2), 'len_extract_list':len(extract), 'form': form}
     return render(request, 'pages/index.html', context=context)
 
 def accounts(request):
@@ -277,7 +254,10 @@ def account(request, id):
     account = Account.objects.get(id=id)
 
     forms = NewAccount(initial={
-
+        'name':account.name,
+        'value':account.value,
+        'type':account.type,
+        'descripition': account.descripition
     })
 
 

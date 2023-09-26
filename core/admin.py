@@ -1,13 +1,13 @@
 from django.contrib import admin
-from .models import Extract, Account, Money
+from .models import Extract, Account
 
 
 #! Classe para configurar o display dos meus modelos 
 
 class AdminAccount(admin.ModelAdmin):
 
-    list_display_links = ["name", "type", "value", "future_value"]
-    list_display = ["name", "type", "value", "future_value"]
+    list_display_links = ["name", "type", "value"]
+    list_display = ["name", "type", "value"]
     search_fields = ["name",]
     list_filter = ["type",]
 
@@ -20,13 +20,8 @@ class AdminExtract(admin.ModelAdmin):
     search_fields = ["name",]
 
 
-class AdminMoney(admin.ModelAdmin):
-    list_display_links = ["value", "future_value"]
-    list_display = ["value", "future_value"]
-
 
 #! Importe dos meu modelos pro admin
 
 admin.site.register(Account, AdminAccount)
 admin.site.register(Extract, AdminExtract)
-admin.site.register(Money, AdminMoney)

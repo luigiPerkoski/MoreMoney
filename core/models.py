@@ -17,7 +17,6 @@ class Account(models.Model): #* Modelo para as contas do banco
         
     name = models.CharField(max_length=50)
     value = models.FloatField(null=True) 
-    future_value = models.FloatField(default=0) 
     descripition = models.TextField(max_length=300, blank=True)
     type = models.CharField(choices=type_list, blank=False, null=False, max_length=2)
     color = models.CharField(choices=color_list, blank=False, null=False, max_length=2)
@@ -53,18 +52,3 @@ class Extract(models.Model): #* Modelo para salvar os extratos
     def show_money(self) -> str:
 
         return f'R$ {self.value:.2f}'.replace('.', ',')
-    
-
-class Money(models.Model): #* Modelo para salvar a soma de todo o dinheiro  
-
-    name = models.CharField(max_length=50)
-    value = models.FloatField()
-    future_value = models.FloatField()
-    extract_damege = models.FloatField()
-    extract_profit = models.FloatField()
-    teste = models.CharField(max_length=50)
-
-
-    def __str__(self) -> str:
-        return self.name
-
