@@ -38,8 +38,7 @@ class CadastroForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput, required=True, help_text='A senha não deve ser muito comum')
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=30, required=True, help_text='Máximo de 30 caracteres')
-    password = forms.CharField(widget=forms.PasswordInput, required=True, help_text='A senha não deve ser muito comum')
-
+    username = forms.CharField(max_length=30)
+    password = forms.CharField(widget=forms.PasswordInput)
 
 
