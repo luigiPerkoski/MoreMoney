@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from . import views
 
 #! Minhas urls do core aqui
@@ -19,5 +20,9 @@ urlpatterns = [
     path('extract/<id>', views.extract, name = 'extract'),
     path('extract_forms_update/<id>', views.extract_forms_update, name = 'extract_forms_update'),
     path('account/<id>', views.account, name = 'account'),
-    path('account_forms_update/<id>', views.account_forms_update, name = 'account_forms_update')
+    path('account_forms_update/<id>', views.account_forms_update, name = 'account_forms_update'),
+    path('cadastro', views.cadastro, name = 'cadastro'),
+    path('login', views.view_login, name = 'login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
 ]

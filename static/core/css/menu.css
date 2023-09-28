@@ -77,7 +77,7 @@ a.button_reserch{
     display: flex;
     border-radius: 20px; 
     margin:  0 0 0 57px; 
-    width: calc(100% - 57px);
+    width: calc(100% - 200px);
     position: absolute;
     left: 0;
     right: 0;
@@ -85,6 +85,7 @@ a.button_reserch{
 } 
 .search {
     display: flex;
+    padding-left: 143px;
     border-radius: 20px;
 }
 .button {

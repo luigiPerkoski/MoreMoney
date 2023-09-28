@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import Extract, Account
-from .forms import NewExtract, NewAccount, SearchForm
+from .forms import NewExtract, NewAccount, SearchForm, CadastroForm, LoginForm
+from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 
 #! Minhas funções para mostrar as paginas aqui
-
+@login_required(login_url='login')
 def index(request):
     #*===============================================================
-    extract = Extract.objects.order_by('date') 
+    extract = Extract.objects.filter().all()
     form = SearchForm()
     response = []
 
@@ -52,7 +56,7 @@ def index(request):
     #//Return
     context = {'extract_list': extract, 'money': round(value, 2), 'future_money': round(future_value, 2), 'len_extract_list':len(extract), 'form': form}
     return render(request, 'pages/index.html', context=context)
-
+@login_required(login_url='login')
 def accounts(request):
     #*===============================================================
     account = Account.objects.all()
@@ -97,7 +101,7 @@ def accounts(request):
     #//Return
     context = {'account_list': account, 'form': form}
     return render(request, 'pages/accounts.html', context=context)
-
+@login_required(login_url='login')
 def damege(request):
     #*===============================================================
     damege = Extract.objects.filter(type='D')
@@ -120,7 +124,7 @@ def damege(request):
     #//Return
     context = {'dameges': damege, 'extract_damege': extract_damage,'future_extract_damage': future_extract_damage, 'len_dameges': len(damege), 'form': form}
     return render(request, 'pages/damege.html', context=context)
-
+@login_required(login_url='login')
 def profit(request):
     #*===============================================================
     profit = Extract.objects.filter(type='P')
@@ -142,7 +146,7 @@ def profit(request):
     #//Return
     context = {'profits': profit, 'extract_profit': extract_profit,'future_extract_profit': future_extract_profit, 'len_profits': len(profit), 'form': form}
     return render(request, 'pages/profit.html', context=context)
-
+@login_required(login_url='login')
 def processar_formulario(request, page, id):
     #*===============================================================
     if request.method == 'POST':
@@ -155,7 +159,7 @@ def processar_formulario(request, page, id):
             Extract.objects.filter(id=id).update(pay=True)
         
         return redirect(page)
-    
+@login_required(login_url='login')
 def new_extract(request):
     #*===============================================================
     forms = NewExtract()
@@ -165,14 +169,14 @@ def new_extract(request):
     context = {'forms': forms, "contas": accounts}
 
     return render(request, 'pages/new_extract.html', context)
-
+@login_required(login_url='login')
 def extract_forms(request):
     #*===============================================================
     forms = NewExtract(request.POST)
     if forms.is_valid():
         forms.save()
     return redirect (index)
-
+@login_required(login_url='login')
 def new_account(request):
     #*===============================================================
     accounts = Account.objects.order_by('name')
@@ -181,7 +185,7 @@ def new_account(request):
     context = {"contas": accounts, 'forms': forms}
 
     return render (request, 'pages/new_account.html', context )
-
+@login_required(login_url='login')
 def new_extract_from_account(request, account): 
     #*===============================================================
     categoria_padrao = Account.objects.get(id=account)
@@ -192,14 +196,14 @@ def new_extract_from_account(request, account):
     context = {'forms': forms}
 
     return render(request, 'pages/new_extract.html', context)
-
+@login_required(login_url='login')
 def accounts_forms(request):
     #*=============================================================== 
     forms = NewAccount(request.POST)
     if forms.is_valid():
         forms.save()
     return redirect (index)
-
+@login_required(login_url='login')
 def search_view(request):
     #*=============================================================== 
     if request.method == 'POST':
@@ -216,19 +220,19 @@ def search_view(request):
     context = {'form': form, 'results': results}
 
     return redirect('/')
-
+@login_required(login_url='login')
 def delete_extract(request, id):
     #*=============================================================== 
     post = Extract.objects.get(id=id)
     post.delete()
     return redirect('index')
-
+@login_required(login_url='login')
 def delete_account(request, id):
     #*=============================================================== 
     post = Account.objects.get(id=id)
     post.delete()
     return redirect('accounts')
-
+@login_required(login_url='login')
 def extract(request, id):
     #*=============================================================== 
 
@@ -240,7 +244,7 @@ def extract(request, id):
     context = {'forms': forms, 'id': id}
 
     return render(request, 'pages/extract.html', context)
-
+@login_required(login_url='login')
 def extract_forms_update(request, id):
     #*=============================================================== 
     
@@ -254,7 +258,7 @@ def extract_forms_update(request, id):
         form = NewExtract(initial={'name': extract.name, 'value':extract.value, 'account': extract.account, 'type': extract.type, 'date': extract.date, 'pay': extract.pay, 'descripition': extract.descripition})
 
     return render(request, 'extract.html', {'form': form})
-
+@login_required(login_url='login')
 def account(request, id):
     #*=============================================================== 
 
@@ -271,7 +275,7 @@ def account(request, id):
     context = {'forms': forms, 'id': id}
 
     return render(request, 'pages/account.html', context)
-
+@login_required(login_url='login')
 def account_forms_update(request,id):
     #*===============================================================
     
@@ -288,3 +292,48 @@ def account_forms_update(request,id):
         })
 
     return render(request, 'extract.html', {'form': form})
+
+def cadastro(request):
+    #*===============================================================
+
+    if request.method == 'POST':
+        form = CadastroForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data['password']
+            
+            if User.objects.filter(username=form.cleaned_data['username']).exists():
+                form.add_error('username', 'Este nome de usuário já está em uso.')
+                return render(request, 'pages/cadastro.html', {'form': form})
+
+            try:
+                validate_password(password)
+            except:
+                form.add_error('password', 'senha invalida')
+                return render(request, 'pages/cadastro.html', {'form': form})
+            
+            User.objects.create_user(
+                username=form.cleaned_data['username'],
+                email=form.cleaned_data['email'],
+                password=password
+            )
+            return redirect('/')
+    else:
+        form = CadastroForm()
+
+    return render(request, 'pages/cadastro.html', {'form': form})
+
+def view_login(request):
+    #*===============================================================
+    form = LoginForm()
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            form.add_error('password', 'Usuario ou Senha incorreto')
+    context = {'form':form}
+
+    return render(request,'pages/login.html',context)
