@@ -1,6 +1,6 @@
 # Gerenciador de Finanças - Projeto Django
 
-[![NPM]](https://github.com/luigiPerkoski/MoreMoney/blob/master/LICENSE)
+[![NPM](https://img.shields.io/npm/1/react)](https://github.com/luigiPerkoski/MoreMoney/blob/master/LICENSE)
 
 ## Descrição do Projeto
 
@@ -34,4 +34,6 @@ O Gerenciador de Finanças é uma aplicação web desenvolvida utilizando Django
 ![Contas](https://github.com/luigiPerkoski/MoreMoney/blob/master/assets/Captura%20de%20tela%202023-09-29%20143939.png)
 
 ## Autor
+
+Luigi Perkoski Paes Leme
 
