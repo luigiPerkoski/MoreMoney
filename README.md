@@ -1,6 +1,6 @@
 # Gerenciador de Finanças - Projeto Django
 
-[![NPM](https://img.shields.io/npm/1/react)](https://github.com/luigiPerkoski/MoreMoney/blob/master/LICENSE)
+[![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT-blue)](https://github.com/luigiPerkoski/MoreMoney/blob/master/LICENSE)
 
 ## Descrição do Projeto
 
