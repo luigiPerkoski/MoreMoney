@@ -28,9 +28,10 @@ O Gerenciador de Finanças é uma aplicação web desenvolvida utilizando Django
 
 ## Layout
 
-![Index]()
-![Login]()
-![Nova Conta]()
+![Index](https://github.com/luigiPerkoski/MoreMoney/blob/master/assets/Captura%20de%20tela%202023-09-29%20143859.png)
+![Login](https://github.com/luigiPerkoski/MoreMoney/blob/master/assets/Captura%20de%20tela%202023-09-29%20143825.png)
+![Novo Extrato](https://github.com/luigiPerkoski/MoreMoney/blob/master/assets/Captura%20de%20tela%202023-09-29%20144006.png)
+![Contas](https://github.com/luigiPerkoski/MoreMoney/blob/master/assets/Captura%20de%20tela%202023-09-29%20143939.png)
 
 ## Autor
 
